@@ -14,7 +14,7 @@ const Add = () => {
   return (<div></div>)
 }
 
-const useStyles = (spacing) => makeStyles(({ spacing }) => ({
+const useStyles = (theme) => makeStyles(({ spacing, ...theme }) => ({
   '@global': {
     body: {
       margin: 0,
@@ -25,6 +25,8 @@ const useStyles = (spacing) => makeStyles(({ spacing }) => ({
     marginBottom: spacing(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
+    background: theme.overrides.background,
+    color: theme.palette.inverted.contrastText,
   },
   actions: {
     display: 'flex',
@@ -32,12 +34,12 @@ const useStyles = (spacing) => makeStyles(({ spacing }) => ({
   add: {
     marginLeft: spacing(1),
   },
-}));
+}))();
 
 
 export default () => {
   const theme = useTheme();
-  const classes = useStyles(theme.spacing);
+  const classes = useStyles(theme);
   return (
     <AppBar position='static' className={classes.appBar}>
       <Typography variant='h6' noWrap children='Items' />
