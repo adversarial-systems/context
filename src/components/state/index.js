@@ -23,7 +23,7 @@ export default () => {
   const classes = useStyles(theme);
   return (
   	<Paper className={classes.paper}>
-  	  <ReactJson src={state.items} displayDataTypes={false} collapsed={1} />
+  	  <ReactJson src={state} displayDataTypes={false} collapsed={1} />
   	</Paper>
   );
 }
