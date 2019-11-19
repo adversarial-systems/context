@@ -8,16 +8,17 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = (theme) => makeStyles(({ spacing, ...theme }) => ({
   paper: {
-    padding: spacing(6),
+    padding: spacing(2),
     marginBottom: spacing(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
-    fontSize:'80%',
+    fontSize:'60%',
+    display: 'block',
   },
 }))();
 
 
-export default () => {
+export const StateViewer = () => {
   const [state] = useStore();
   const theme = useTheme();
   const classes = useStyles(theme);

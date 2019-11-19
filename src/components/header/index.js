@@ -1,6 +1,5 @@
 import React from 'react';
-import Filter from '../filter';
-import Present from '../present';
+import { Filter, Present }  from '../index';
 
 import { useStore } from '../../store';
 
@@ -33,7 +32,7 @@ const useStyles = (theme) => makeStyles(({ spacing, ...theme }) => ({
 }))();
 
 
-export default () => {
+export const Header = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
   const [{ items, filter }] = useStore();

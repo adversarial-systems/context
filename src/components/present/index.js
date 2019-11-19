@@ -7,7 +7,7 @@ import uuid from 'uuid/v4';
 
 import Button from '@material-ui/core/Button';
 
-export default props => {
+export const Present = (props) => {
   const [{ filter }, dispatch] = useStore();
 
   const onClick = () => {

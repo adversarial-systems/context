@@ -10,7 +10,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
 
-export default () => {
+export const List = () => {
   const [{ items, filter }, dispatch] = useStore();
 
   return (

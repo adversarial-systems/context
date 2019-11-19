@@ -10,7 +10,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import styles from './styles';
 const useStyles = makeStyles(styles);
 
-export default () => {
+export const Filter = () => {
   const [{ filter }, dispatch] = useStore();
   const classes = useStyles();
 

@@ -11,3 +11,11 @@ export const Store = ({ reducer, initialState, children }) => (
 );
 
 export const useStore = () => useContext(StateContext);
+
+export const initLocalState = (initialState) => {
+  if(localStorage.getItem(initialState.localStorageKey))
+    { return JSON.parse(localStorage.getItem(initialState.localStorageKey) ) }
+  const newState = JSON.stringify(Object.assign({}, initialState ,  {chrono: Object.assign({}, initialState.chrono, {created: Date.now()}) } ))
+  localStorage.setItem(initialState.localStorageKey, newState)
+  return JSON.parse(newState)
+}

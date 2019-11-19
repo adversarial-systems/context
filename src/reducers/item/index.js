@@ -1,6 +1,13 @@
+import uuid from 'uuid/v4';
+import { DEFAULT_ITEM } from './default';
+
+const initItem = (item) => {
+  return Object.assign({}, DEFAULT_ITEM, item, {id: uuid()})
+}
+
 export const add = (state, { payload }) => ({
   ...state,
-  items: [...state.items, payload.item],
+  items: [...state.items, initItem(payload.item)],
 });
 
 export const remove = (state, { payload }) => ({

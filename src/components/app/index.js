@@ -1,13 +1,16 @@
 import React from "react";
 import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Store } from "../../store";
+import { Store, initLocalState } from "../../store";
 import reducers from "../../reducers"
 import initialState from "../../store/initialState"
 
-import Header from "../header";
-// import Present from "../present";
-import List from "../list";
-import StateDisplay from "../state";
+import { 
+  Puller,
+  StateViewer, 
+  Timer, 
+  TodayList 
+} from "../";
+
 
 const theme = createMuiTheme({
 	overrides: {
@@ -20,13 +23,15 @@ const theme = createMuiTheme({
 	}
 });
 
-export default () => (
-  
-  <Store initialState={initialState} reducer={reducers}>
-  	<ThemeProvider theme={theme}>
-			<Header />
-      <List />
-	    <StateDisplay />
-    </ThemeProvider>
-  </Store>
-);
+export const App = () => {
+  return (
+    <Store initialState={initLocalState(initialState)} reducer={reducers}>
+    	<ThemeProvider theme={theme} >
+        <Puller />
+        <TodayList />
+  	    <StateViewer />
+        <Timer />
+      </ThemeProvider>
+    </Store>
+  )
+};

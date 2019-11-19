@@ -1,4 +1,6 @@
 import * as item from './item';
+import * as time from './time';
+import * as local from './local';
 import * as types from '../actions/types';
 
 const combine = handlers => (state, action) => {
@@ -15,4 +17,7 @@ export default combine({
   [types.UPDATE_ITEM]: item.update,
   [types.FILTER_ITEM]: item.filter,
   [types.SHOW_STATE]: item.showState,
+  [types.ADVANCE_TIME]: time.advance,
+  [types.DELAY_TIMER]: time.delay,
+  [types.PERSIST_LOCAL]: local.persist,
 });
