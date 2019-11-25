@@ -13,7 +13,7 @@ export const Timer = () => {
   useInterval(() => {
     dispatch(advanceTime({}));
     dispatch(persistLocal({}));
-  },delay*1000)
+  },delay)
 
   const handleDelayChange = (e) => {
     dispatch(delayTimer({ delay: e.currentTarget.value || 10 }));

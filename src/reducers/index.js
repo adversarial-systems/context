@@ -1,3 +1,4 @@
+import * as card from './card';
 import * as item from './item';
 import * as time from './time';
 import * as local from './local';
@@ -16,6 +17,7 @@ export default combine({
   [types.REMOVE_ITEM]: item.remove,
   [types.UPDATE_ITEM]: item.update,
   [types.FILTER_ITEM]: item.filter,
+  [types.NEXT_CARD]: card.next,
   [types.SHOW_STATE]: item.showState,
   [types.ADVANCE_TIME]: time.advance,
   [types.DELAY_TIMER]: time.delay,

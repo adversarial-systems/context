@@ -5,7 +5,7 @@ import reducers from "../../reducers"
 import initialState from "../../store/initialState"
 
 import { 
-  Puller,
+  Next,
   StateViewer, 
   Timer, 
   TodayList 
@@ -26,11 +26,11 @@ const theme = createMuiTheme({
 export const App = () => {
   return (
     <Store initialState={initLocalState(initialState)} reducer={reducers}>
+    <Timer />
     	<ThemeProvider theme={theme} >
-        <Puller />
+        <Next />
         <TodayList />
   	    <StateViewer />
-        <Timer />
       </ThemeProvider>
     </Store>
   )
