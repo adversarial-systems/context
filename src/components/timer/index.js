@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStore } from '../../store';
-import { advanceTime, persistLocal, delayTimer } from '../../actions';
+import { advanceTime, persistLocal, delayTimer, ageCreated } from '../../actions';
 import { useInterval } from '../../hooks';
 
 export const Timer = () => {
@@ -18,6 +18,7 @@ export const Timer = () => {
   const handleDelayChange = (e) => {
     dispatch(delayTimer({ delay: e.currentTarget.value || 10 }));
     dispatch(persistLocal({}));
+    dispatch(ageCreated({adjustment: 1000000}));
   }
 
   return (

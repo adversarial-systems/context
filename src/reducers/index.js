@@ -21,5 +21,6 @@ export default combine({
   [types.SHOW_STATE]: item.showState,
   [types.ADVANCE_TIME]: time.advance,
   [types.DELAY_TIMER]: time.delay,
+  [types.AGE_TIMER]: time.age,
   [types.PERSIST_LOCAL]: local.persist,
 });

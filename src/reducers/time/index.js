@@ -12,3 +12,11 @@ export const delay = (state, { payload }) => ({
     delay: Number(payload.timer.delay)
   },
 })
+
+
+export const age = (state, { payload }) => ({
+  ...state,
+  chrono: { ...state.chrono, 
+    created: state.chrono.created - Number(payload.created.adjustment),
+  },
+})

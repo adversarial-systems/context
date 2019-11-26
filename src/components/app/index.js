@@ -26,7 +26,7 @@ const theme = createMuiTheme({
 export const App = () => {
   return (
     <Store initialState={initLocalState(initialState)} reducer={reducers}>
-    <Timer />
+      <Timer />
     	<ThemeProvider theme={theme} >
         <Next />
         <TodayList />

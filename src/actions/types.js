@@ -22,3 +22,4 @@ export const ADVANCE_TIME = 'ADVANCE_TIME'
 export const PERSIST_LOCAL = 'PERSIST_LOCAL'
 
 export const DELAY_TIMER = 'DELAY_TIMER'
+export const AGE_TIMER = 'AGE_TIMER'

@@ -3,12 +3,21 @@ import { DEFAULT_CARD } from './default';
 import { POR_ENG } from '../../data';
 
 const initCard = (card) => {
-  return Object.assign({}, DEFAULT_CARD, card, {id: uuid(), visit: Date.now()})
+  if(card && card.id) return Object.assign({}, DEFAULT_CARD, card, {source: card.id, id: uuid(), visit: Date.now()})
+  return null
 }
+
+const unvisitedCardsFilter = (visited, source) => {
+  return source.filter(s => !(visited.map(card => card.source)).includes(s.id))
+}
+
+// const visitCard = (card) => {
+//   return Object.assign({}, DEFAULT_CARD, card, {id: uuid(), visit: Date.now()})
+// }
 
 export const next = (state, { payload }) => ({
   ...state,
-  visited: [...state.visited || [], initCard(payload.card)],
+  visited: [...state.visited || [], initCard(unvisitedCardsFilter(state.visited, POR_ENG.cardlist)[0]) ],
   source: [...POR_ENG.cardlist],
 });
 

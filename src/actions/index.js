@@ -23,3 +23,4 @@ export const advanceTime = time => ({type: types.ADVANCE_TIME, payload: { time }
 
 export const persistLocal = local => ({type: types.PERSIST_LOCAL, payload: { local } });
 export const delayTimer = timer => ({type: types.DELAY_TIMER, payload: { timer } });
+export const ageCreated = created => ({type: types.AGE_TIMER, payload: { created } });
