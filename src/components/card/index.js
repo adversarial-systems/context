@@ -1,12 +1,12 @@
 import React from 'react';
 
-import { Paper } from '@material-ui/core';
+import { Card as MCard } from '@material-ui/core';
 
 export const Card = (props) => {
   const { children } = props;
   return (
-    <Paper justify="space-around" center="true" padding="3">
+    <MCard className={props.className}>
       {children}
-    </Paper>
+    </MCard>
   )
 }

@@ -1,23 +1,25 @@
 import uuid from 'uuid/v4';
+import { shuffleArrayWithKFY } from '../../utils';
 import { DEFAULT_CARD } from './default';
 import { POR_ENG } from '../../data';
 
 const initCard = (card) => {
-  if(card && card.id) return Object.assign({}, DEFAULT_CARD, card, {source: card.id, id: uuid(), visit: Date.now()})
-  return null
+  return Object.assign({}, DEFAULT_CARD, card, {source: card.id, id: uuid(), visit: Date.now()});
 }
 
-const unvisitedCardsFilter = (visited, source) => {
-  return source.filter(s => !(visited.map(card => card.source)).includes(s.id))
+const unvisitedCardPicker = ({visited, source, number}) => {
+  const unvisitedCards = shuffleArrayWithKFY(source).filter(s => !(visited.map(card => card.source)).find(sid => sid && sid === s.id)).slice(0,number||1)
+  if(unvisitedCards) return [...visited, ...unvisitedCards.map((c)=>initCard(c))];
+  return visited
 }
 
 // const visitCard = (card) => {
 //   return Object.assign({}, DEFAULT_CARD, card, {id: uuid(), visit: Date.now()})
 // }
 
-export const next = (state, { payload }) => ({
+export const nextn = (state, { payload }) => ({
   ...state,
-  visited: [...state.visited || [], initCard(unvisitedCardsFilter(state.visited, POR_ENG.cardlist)[0]) ],
+  visited: unvisitedCardPicker({visited: state.visited || [], source: POR_ENG.cardlist, number: payload.next.n }),
   source: [...POR_ENG.cardlist],
 });
 

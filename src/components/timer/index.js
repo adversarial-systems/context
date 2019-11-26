@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useStore } from '../../store';
 import { advanceTime, persistLocal, delayTimer, ageCreated } from '../../actions';
 import { useInterval } from '../../hooks';
+import { Card, Slider } from '@material-ui/core';
 
 export const Timer = () => {
   const [{chrono: { delay, daysFromCreation }}, dispatch] = useStore();
@@ -11,24 +12,24 @@ export const Timer = () => {
   },[dispatch])
 
   useInterval(() => {
-    dispatch(advanceTime({}));
     dispatch(persistLocal({}));
+    dispatch(advanceTime({}));
   },delay)
 
-  const handleDelayChange = (e) => {
-    dispatch(delayTimer({ delay: e.currentTarget.value || 10 }));
+  const handleDelayChange = (value) => {
+    dispatch(delayTimer({ delay: value || 10 }));
     dispatch(persistLocal({}));
     dispatch(ageCreated({adjustment: 1000000}));
   }
 
   return (
-    <div>
+    <Card padding={2}>
      {false &&  <div>
         Time from start: {`${(daysFromCreation/1).toFixed(0)}d:${((daysFromCreation*24)%24).toFixed(0)}h:${((daysFromCreation*3600)%60).toFixed(0)}m:${((daysFromCreation*86400)%60).toFixed(0)}s`}
       </div>
      }
-      <input type="range" min="1" max="15" onChange={handleDelayChange} defaultValue={(delay)}></input>
-      {` ${delay}`}
-    </div>
+      <Slider min={1} max={15} valueLabelDisplay="auto"
+  aria-labelledby="range-slider" onChange={(e,value) => { handleDelayChange(value); }}/>
+    </Card>
   )
 }

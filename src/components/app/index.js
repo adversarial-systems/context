@@ -14,7 +14,8 @@ import {
 
 const theme = createMuiTheme({
 	overrides: {
-		background: 'linear-gradient(45deg, #9BFE4B 30%, #4E53FF 80%)'
+		background: 'linear-gradient(45deg, #9BFE4B 30%, #4E53FF 80%)',
+    margin: 2,
 	},
 	palette: {
 		inverted: {

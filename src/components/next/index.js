@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { useStore } from '../../store';
-import { nextCard } from '../../actions';
-import { Button } from '@material-ui/core';
+import { nextNCards } from '../../actions';
+import { Button, Paper, Slider } from '@material-ui/core';
+
+
 
 export const Next = () => {
+
   const [, dispatch] = useStore();
+  const [number, setNumber] = useState(1);
+
   return (
-     <Button children={"Next"} component="button" onClick={ e => dispatch( nextCard({}) ) }/>
+    <Paper>
+      <Button children={"Next"} component="button" onClick={ e => dispatch( nextNCards({ n: number }) ) }/>
+      <Slider min={1} max={10} valueLabelDisplay="auto"
+  aria-labelledby="range-slider" onChange={(e,value) => { setNumber(value); }}/>
+    </Paper>
   )
 }

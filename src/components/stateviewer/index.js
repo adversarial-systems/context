@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactJson from 'react-json-view';
+import { persistLocal } from '../../actions';
 import { useStore } from '../../store';
 import { useTheme, makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -19,12 +20,12 @@ const useStyles = (theme) => makeStyles(({ spacing, ...theme }) => ({
 
 
 export const StateViewer = () => {
-  const [state] = useStore();
+  const [state, dispatch] = useStore();
   const theme = useTheme();
   const classes = useStyles(theme);
   return (
   	<Paper className={classes.paper}>
-  	  <ReactJson src={state} displayDataTypes={false} collapsed={1} onEdit={()=>{}} onDelete={()=>{}} />
+  	  <ReactJson src={state} displayDataTypes={false} collapsed={0} onEdit={()=>{}} onDelete={(w)=>{ dispatch(persistLocal({update: w.updated_src})) }} />
   	</Paper>
   );
 }

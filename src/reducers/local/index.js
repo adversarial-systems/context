@@ -1,4 +1,5 @@
 export const persist = (state, { payload }) => {
-  localStorage.setItem(state.localStorageKey, JSON.stringify(state));
-  return (state)
+  const {local: { update }} = payload
+  localStorage.setItem(state.localStorageKey, JSON.stringify(update || state));
+  return (update || state)
 }

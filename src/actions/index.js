@@ -8,7 +8,7 @@ export const filterItem = filter => ({ type: types.FILTER_ITEM, payload: { filte
 export const showState = state => ({ type: types.SHOW_STATE, payload: { state } });
 
 // export const unassigned = card => ({ type: types.UNASSIGNED_CARD, payload: { card } });
-export const nextCard = next => ({ type: types.NEXT_CARD, payload: { next } });
+export const nextNCards = next => ({ type: types.NEXT_NCARDS, payload: { next } });
 export const updateCard = card => ({ type: types.UPDATE_CARD, payload: { card } });
 export const markVisitedCard = card => ({ type: types.MARKVISITED_CARD, payload: { card } });
 export const markUnvisitedCard = card => ({ type: types.MARKUNVISITED_CARD, payload: { card } });
