@@ -9,12 +9,12 @@ import { Button, Paper, Slider } from '@material-ui/core';
 export const Next = () => {
 
   const [, dispatch] = useStore();
-  const [number, setNumber] = useState(1);
+  const [number, setNumber] = useState(4);
 
   return (
     <Paper>
       <Button children={"Next"} component="button" onClick={ e => dispatch( nextNCards({ n: number }) ) }/>
-      <Slider min={1} max={10} valueLabelDisplay="auto"
+      <Slider value={number} min={1} max={10} valueLabelDisplay="auto"
   aria-labelledby="range-slider" onChange={(e,value) => { setNumber(value); }}/>
     </Paper>
   )

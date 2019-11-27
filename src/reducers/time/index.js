@@ -2,7 +2,7 @@ export const advance = (state, { payload }) => ({
   ...state,
   timer: true,
   chrono: { ...state.chrono, 
-    daysFromCreation: Number(((Date.now()-state.chrono.created)/(86400*1000)))
+    daysFromCreation: Number((Date.now()-((state && state.chrono && state.chrono.created) || Date.now())/(86400*1000)))
   },
 });
 

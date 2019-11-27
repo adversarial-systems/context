@@ -28,9 +28,9 @@ const theme = createMuiTheme({
 export const App = () => {
   return (
     <Store initialState={initLocalState(initialState)} reducer={reducers}>
-      <Timer />
-      <Audio />
     	<ThemeProvider theme={theme} >
+        <Timer />
+        <Audio active={true}/>
         <Next />
         <TodayList />
   	    <StateViewer />

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 const isSafari = (function (p) { return p && (p.toString() === "[object SafariRemoteNotification]") })(window['safari'] && window['safari']['pushNotification'] );
 const ua = window.navigator.userAgent;
@@ -13,29 +13,29 @@ export default function usePlayer(props) {
     media,
     mediaB,
     onloopscomplete, 
-    onloopstart, 
-    playing,
-    setPlaying,
-    setLoopCount,
+    onloopstart=()=>{}, 
+    setLoopCount=()=>{},
     playspeed,
     audio, 
     dichotic,
     playerRef,
     buttonRef,
     mode,
+    debug=true,
   } = props
 
+  const [playing, setPlaying] = useState(true);
   const mediaPathStereo = `./media/${(mode || 'POR').toUpperCase()}/`
   const mediaPathDichotic = `./media/${(mode || 'POR').toUpperCase()}_ENG/`
   const [audioTrack, setAudioTrack] = useState()
   const [audioTrackURL, setAudioTrackURL] = useState('')
   const [looped, setLooped] = useState(true)
 
-  const startPlayer = () => {
-    if(loopcount>((maxloops || 50)-1)) {
-      onloopscomplete()
-      return
-    }
+  const startPlayer = useCallback(() => {
+    // if(loopcount>((maxloops || 50)-1)) {
+    //   onloopscomplete()
+    //   return
+    // }
 
     onloopstart()
     setLoopCount(loopcount+1)
@@ -52,32 +52,36 @@ export default function usePlayer(props) {
     }
 
     if(!iOS && audioTrack && audioTrack.play){
-      audioTrack.play().then(()=>{
+      let audioPlayerPromise = audioTrack.play();
+      audioPlayerPromise && audioPlayerPromise.then(()=>{
       },(err)=>{console.log(err)})
     }
 
-  }
+  },[audioTrack, loopcount, maxloops, onloopscomplete, onloopstart, playerRef, playspeed, setLoopCount])
 
-  const stopPlayer = () => {
-    if(iOS && playerRef && playerRef.current && playerRef.current){
+  const stopPlayer = useCallback(() => {
+    if(playerRef && playerRef.current && playerRef.current){
       playerRef.current.pause()
     }
-    audioTrack.pause()
-  }
+    // audioTrack.pause()
+  }, [playerRef])
 
-  const handleAudioKeyDown = (event) => {
+  const handleAudioKeyDown = useCallback((event) => {
     switch( event.keyCode ) {
       case 32: // SPACE KEY
-        // props.debug && console.log(`SPACE key down in audio player`)
-        buttonRef.current.props.onClick()
+        debug && console.log(`SPACE key down in audio player`)
+        // buttonRef.current.props.onClick()
+        event.preventDefault();
+        setPlaying(!playing);  
         break;
       default: 
         // this.props.debug && console.log(`clicked code-${event.keyCode} key handled by AudioPlayer`)
         break;
     }
-  } 
+  },[ setPlaying, playing, debug])
 
   useEffect(() => { // ON CHANGE OF [audioTrack] ONLY
+    const currentRef = playerRef;
     const handleMediaPaused = () => {
       if(isSafari || iOS) { onloopstart() }
       setLooped(false) // this false then true setting helps loop efficiently
@@ -87,7 +91,7 @@ export default function usePlayer(props) {
     if(audioTrack && audioTrack.addEventListener){
       onloopstart()
       setMediaReady(true)
-      audioTrack.addEventListener("ended", handleMediaPaused,false)
+      // audioTrack.addEventListener("ended", handleMediaPaused,false)
       startPlayer()
     }
     if(iOS &&  playerRef && playerRef.current && 
@@ -103,24 +107,26 @@ export default function usePlayer(props) {
         audioTrack.removeEventListener("ended", handleMediaPaused,false)
         // setAudioTrack(null)
       }
-      if(iOS &&  playerRef && playerRef.current && 
-        playerRef.current.play) {
-        playerRef.current.removeEventListener("pause", handleMediaPaused,false)
+      if(iOS &&  currentRef && currentRef.current && 
+        currentRef.current.play) {
+        currentRef.current.removeEventListener("pause", handleMediaPaused,false)
       }
     };
     }
-  ,[audioTrack]) // ON CHANGE OF [audioTrack] ONLY
+  ,[handleAudioKeyDown, onloopstart, audioTrack, playerRef, startPlayer]) // ON CHANGE OF [audioTrack] ONLY
 
   useEffect(() => { // ON CHANGE OF [playing,looped] ONLY
-     if(playing && looped){
+     if(playing ){
+      console.log('starting player')
       startPlayer()
       return
     }
-    if(!playing && !looped){
+    if(!playing){
+      console.log('stopping player')
       stopPlayer()
       return
     }     
-    },[playing,looped] // ON CHANGE OF [playing,looped] ONLY
+    },[playing,looped,startPlayer,stopPlayer] // ON CHANGE OF [playing,looped] ONLY
   )
 
   useEffect(() => {
@@ -148,8 +154,8 @@ export default function usePlayer(props) {
     const audioTrackURL = dichotic ? `${mediaPathDichotic}${media.replace(/-/g,'-')}` : `${mediaPathStereo}${mediaB.replace(/-/g,'-')}`
     setAudioTrackURL(audioTrackURL)
     setAudioTrack(new Audio(audioTrackURL))
-
-  },[media]) // ON CHANGE OF [media] ONLY
+    // console.log('media change')
+  },[dichotic, media, mediaB, mediaPathDichotic, mediaPathStereo]) // ON CHANGE OF [media] ONLY
 
   return {
     className,

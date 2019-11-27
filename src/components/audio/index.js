@@ -1,4 +1,4 @@
-import React , { useRef }     from 'react';
+import React , { useRef, useState }     from 'react';
 import usePlayer  from './usePlayer';
 import { useStore } from '../../store';
 
@@ -6,36 +6,37 @@ import { useStore } from '../../store';
 
 export const Audio = (props) => {
 
-
   const playerRef = useRef()
   const buttonRef = useRef()
 
-  const { 
-    className,
-    loopcount,
-    maxloops,
-    mediaReady,
-    playing,
-    setPlaying,
-    iOS,
-    media,
-    mediaB,
+  let { 
+    // className,
+    // loopcount,
+    // maxloops,
+    // mediaReady,
+    // playing,
+    // setPlaying,
+    // iOS,
+    active=true,
+    media='',
+    mediaB='', 
   } = props
 
-  // usePlayer({...props, playerRef, buttonRef, mode })  
-  const [{ mode, audio: { url } }, dispatch] = useStore();
-  return (
-
+    
+  const [{ mode, audio: { url = '' } = {url:''} }, ] = useStore();
+  media = url;
+  mediaB = url;
+  // const mediaPathStereo = `./media/${(mode || 'POR').toUpperCase()}/`
+  const { audioTrackURL } = usePlayer({...props, media, mediaB, playerRef, buttonRef, mode })
+  if(active) return (
     <div>
-     {media && mediaB && 
-      <div>
-        <button ref={buttonRef} format="gradient" size="normal" label={` ${(maxloops || 4) - (loopcount || 0)}`} className={`fas ${(!playing ? 'fa-play' : 'fa-pause')}`} color={!playing ? 'green' : 'red'} ></button>
-      </div>
-     }
-     {media && iOS && <video playsInline ref={playerRef} src={url}/>}
+
+     {url && <video playsInline ref={playerRef} src={`${audioTrackURL}`} preload autoPlay loop controls height={'72'}/>}
      {(!url) && <div>Audio Loading ...</div>}
      {url && <div>{url}</div>}
-    </div>
+   
+      </div>
   )
+    return (<div />)
   
 }

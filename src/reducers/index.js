@@ -22,6 +22,7 @@ export default combine({
   [types.MARKVISITED_CARD]:card.markVisited,
   [types.MARKUNVISITED_CARD]:card.markUnvisited,
   [types.SET_AUDIO]:audio.setUrl,
+  // [types.SET_AUDIO]:local.persist,
   [types.SHOW_STATE]: item.showState,
   [types.ADVANCE_TIME]: time.advance,
   [types.DELAY_TIMER]: time.delay,

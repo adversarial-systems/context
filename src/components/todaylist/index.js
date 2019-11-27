@@ -1,14 +1,14 @@
 import React from 'react';
 
 import { useStore } from '../../store';
-import { markUnvisitedCard, setAudio } from '../../actions';
+import { setAudio } from '../../actions';
 
 import { Card } from '../';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
+import { Button, CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
 
-import DeleteIcon from '@material-ui/icons/Delete';
+// import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   card: {
@@ -19,10 +19,20 @@ const useStyles = makeStyles({
        background: "#bfb",
     }
   },
+  focusCard: {
+    minWidth: 200,
+  },
   bullet: {
     display: 'inline-block',
     margin: '0 2px',
     transform: 'scale(0.8)',
+  },
+  button: {
+    background: "#fff",
+    '&:hover': {
+       background: "#bf0",
+    },
+  
   },
   title: {
     fontSize: 10,
@@ -46,18 +56,19 @@ export const TodayList = () => {
     {visited && visited
       // .filter(t => (t && t.srs && !t.srs.today))
       .map(card => (
-      <Grid key={card.id} item  onClick={()=>{
-                dispatch(markUnvisitedCard({...card}))
+      <Grid key={card.id} item  onMouseOver={()=>{
+                // dispatch(markUnvisitedCard({...card}))
+                dispatch(setAudio({ url: card.audio_stereo_url }))
               }}>
         <Card className={classes.card} >
-          <CardContent onMouseOver={()=>{dispatch(setAudio({ url: card.audio_stereo_url }))}}>
-          <Typography children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
-          <Typography children={card.fl_word} variant="subtitle1" component="h2" />
-          <CardMedia
-            className={classes.media}
-            image={card.images && card.images[0]}
-            title={"test"}
-          />
+          <CardContent >
+            <Typography children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
+            <Typography children={card.fl_word} variant="subtitle1" component="h2" />
+            <CardMedia
+              className={classes.media}
+              image={card.images && card.images[0]}
+              title={card.fl_word}
+            />
           </CardContent>
         </Card>
       </Grid>
