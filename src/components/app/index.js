@@ -5,6 +5,7 @@ import reducers from "../../reducers"
 import initialState from "../../store/initialState"
 
 import { 
+  Audio,
   Next,
   StateViewer, 
   Timer, 
@@ -28,6 +29,7 @@ export const App = () => {
   return (
     <Store initialState={initLocalState(initialState)} reducer={reducers}>
       <Timer />
+      <Audio />
     	<ThemeProvider theme={theme} >
         <Next />
         <TodayList />

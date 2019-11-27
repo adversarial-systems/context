@@ -18,6 +18,8 @@ export const demoteCard = card => ({ type: types.DEMOTE_CARD, payload: { card } 
 export const promoteCard = card => ({ type: types.PROMOTE_CARD, payload: { card } });
 export const filterCard = filter => ({ type: types.FILTER_CARD, payload: { filter } });
 
+export const setAudio = url => ({ type: types.SET_AUDIO, payload: { url } });
+
 export const advanceTime = time => ({type: types.ADVANCE_TIME, payload: { time } });
 // export const dayAdvance = day => ({type: types.DAY_ADVANCE, payload: { day } });
 

@@ -14,6 +14,8 @@ export const DEMOTE_CARD = 'DEMOTE_CARD'
 export const PROMOTE_CARD = 'PROMOTE_CARD'
 export const FILTER_CARD = 'FILTER_CARD'
 
+export const SET_AUDIO = 'SET_AUDIO'
+
 export const SHOW_STATE = 'SHOW_STATE'
 
 export const ADVANCE_TIME = 'ADVANCE_TIME'

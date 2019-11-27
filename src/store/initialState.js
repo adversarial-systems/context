@@ -1,5 +1,6 @@
 export default {
   localStorageKey: 'HSPContext',
+  mode: 'POR',
   state: true,
   filter: '',
   chrono: {

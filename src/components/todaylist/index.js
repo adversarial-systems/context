@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useStore } from '../../store';
-import { markUnvisitedCard } from '../../actions';
+import { markUnvisitedCard, setAudio } from '../../actions';
 
 import { Card } from '../';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +12,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
   card: {
-    // minWidth: 225,
+    minWidth: 85,
     // maxHeight: 100,
     background: "#ffb",
     '&:hover': {
@@ -49,13 +49,13 @@ export const TodayList = () => {
       <Grid key={card.id} item  onClick={()=>{
                 dispatch(markUnvisitedCard({...card}))
               }}>
-        <Card className={classes.card}>
-          <CardContent>
+        <Card className={classes.card} >
+          <CardContent onMouseOver={()=>{dispatch(setAudio({ url: card.audio_stereo_url }))}}>
           <Typography children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
           <Typography children={card.fl_word} variant="subtitle1" component="h2" />
           <CardMedia
             className={classes.media}
-            image={card.images[0]}
+            image={card.images && card.images[0]}
             title={"test"}
           />
           </CardContent>

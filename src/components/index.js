@@ -1,3 +1,4 @@
+import { Audio } from './audio';
 import { Card } from './card';
 import { Filter } from './filter';
 import { Header } from './header';
@@ -10,6 +11,7 @@ import { Timer } from './timer';
 import { TodayList } from './todaylist';
 
 export {
+  Audio,
   Card,
   Filter, 
   Header, 

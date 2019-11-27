@@ -1,3 +1,4 @@
+import * as audio from './audio';
 import * as card from './card';
 import * as item from './item';
 import * as time from './time';
@@ -20,6 +21,7 @@ export default combine({
   [types.NEXT_NCARDS]: card.nextn,
   [types.MARKVISITED_CARD]:card.markVisited,
   [types.MARKUNVISITED_CARD]:card.markUnvisited,
+  [types.SET_AUDIO]:audio.setUrl,
   [types.SHOW_STATE]: item.showState,
   [types.ADVANCE_TIME]: time.advance,
   [types.DELAY_TIMER]: time.delay,
