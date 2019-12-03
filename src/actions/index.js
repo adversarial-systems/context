@@ -11,7 +11,8 @@ export const showState = state => ({ type: types.SHOW_STATE, payload: { state } 
 
 export const currentCard = card => ({ type: types.CURRENT_CARD, payload: { card } });
 export const nextNCards = next => ({ type: types.NEXT_NCARDS, payload: { next } });
-export const currentAperture = aperture => ({ type: types.APERTURE_CARDS, payload: { aperture }});
+export const aperturePosition = aperture => ({ type: types.APERTURE_POSITION, payload: { aperture } });
+export const apertureSize = aperture => ({ type: types.APERTURE_SIZE, payload: { aperture } }) ;
 export const updateCard = card => ({ type: types.UPDATE_CARD, payload: { card } });
 export const markVisitedCard = card => ({ type: types.MARKVISITED_CARD, payload: { card } });
 export const markUnvisitedCard = card => ({ type: types.MARKUNVISITED_CARD, payload: { card } });

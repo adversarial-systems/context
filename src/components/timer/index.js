@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useStore } from '../../store';
 import { advanceTime, persistLocal, delayTimer, ageCreated } from '../../actions';
 import { useInterval } from '../../hooks';
-import { Slider } from '@material-ui/core';
+import { Paper, Slider, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -30,9 +30,11 @@ export const Timer = () => {
   }
 
   return (
-
+    <Paper >
+      <Typography children={'localStorage_frequency'}  color="textSecondary" gutterBottom/>   
+      
       <Slider className={classes.slider} value={delay} min={1} max={15} valueLabelDisplay="auto"
   aria-labelledby="range-slider" onChange={(e,value) => { handleDelayChange(value); }}/>
- 
+  </Paper>
   )
 }

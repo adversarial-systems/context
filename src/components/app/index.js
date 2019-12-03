@@ -29,10 +29,11 @@ export const App = () => {
   return (
     <Store initialState={initLocalState(initialState)} reducer={reducers}>
     	<ThemeProvider theme={theme} >
-        <Timer />
-        <Next />
         <List />
   	    <StateViewer />
+        
+        <Timer />
+        <Next />
         <Audio active={true}/>
       </ThemeProvider>
     </Store>

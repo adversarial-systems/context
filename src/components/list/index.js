@@ -2,30 +2,47 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 
 import { useStore } from '../../store';
-import { currentCard, silenceAudio, markUnvisitedCard, rescoreCard, persistLocal } from '../../actions';
+import { nextNCards, currentCard, aperturePosition, apertureSize, silenceAudio, markUnvisitedCard, rescoreCard, persistLocal } from '../../actions';
 
 import { Card, Score } from '../';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
+import { CardContent, CardMedia, Grid, Paper, Typography } from '@material-ui/core';
 
 
 // import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles({
+  paper:{
+    maxHeight:200,
+  },
   gridcontainer: {
-    minHeight:200,
-    paddingBottom:400,
+    // minHeight:100,
+    paddingBottom:10,
+    // '@media(min-width:780px)': { // eslint-disable-line no-useless-computed-key
+    //   width: '80%'
+    // }
   },
   griditem: {
     minWidth: 115,
     maxHeight:10,
   },
+  gridprev: {
+    minWidth: 75,
+    minHeight:200,
+  },
+  gridnext: {
+    minWidth: 75,
+    minHeight:200,
+    paddingTop: 100,
+  },
   card: {
     // minWidth: 145,
     // maxHeight: 100,
     background: "#ffb",
-    
+    '&:hover': {
+      background: "rgba(205,255,180,0.8)",
+    }
   },
   sm2_0: {
     background: "rgba(255,200,180,1)",
@@ -94,15 +111,29 @@ const useStyles = makeStyles({
 
 
 export const List = () => {
-  const [{ visited, aperture: { position }, chrono: { created } },dispatch ] = useStore();
+  const [{ visited, aperture: { position: aperture_position, size: aperture_size, max: aperture_max }, chrono: { created } },dispatch ] = useStore();
   const classes = useStyles();
   
 
   return (
-    <Grid container spacing={1} justify="space-around" className={classes.gridcontainer}>
+    <Grid container  spacing={4} justify="space-around" className={classes.gridcontainer}>
+      <Grid item className={classes.gridprev} onClick={(e) => { dispatch( aperturePosition({ position: (aperture_position-1) }) ) }}>
+        <Card className={classes.card}>
+          <CardContent >  
+            <Typography children={'Prev'}  className={classes.title} color="textSecondary" gutterBottom/>
+          </CardContent >
+        </Card>
+      </Grid>
+      <Grid item className={classes.gridnext} onClick={(e) => { if(aperture_position<aperture_max) {dispatch( aperturePosition({ position: (aperture_position+1) }) ) } else {dispatch(nextNCards({ n: (aperture_size) })); dispatch( aperturePosition({ position: (aperture_position+1) }) ) } }}>
+        <Card className={classes.card} >
+          <CardContent >
+            <Typography children={'Next'}  className={classes.title} color="textSecondary" gutterBottom/>
+          </CardContent>
+        </Card>
+      </Grid>
     {visited && visited
       // .filter(t => (t && t.sm2===3))
-      .slice((6*(position-1)),6*(position-1)+6)
+      .slice((aperture_size*(aperture_position-1)),(aperture_size*(aperture_position-1))+aperture_size)
       .sort((a,b)=>{ return a.visit - b.visit })
       .sort((a,b)=>{ return a.sm2 - b.sm2 })
       .map(card => (
@@ -127,11 +158,13 @@ export const List = () => {
             />
             <Typography children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.title} color="textSecondary" gutterBottom/>
            </CardContent>
-           <Score card={card} />
+           {false && <Score card={card} />}
         </Card>
       </Grid>
       
     ))}
+      
     </Grid>
+    
   );
 };

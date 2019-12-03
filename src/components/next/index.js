@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { useStore } from '../../store';
-import { nextNCards, currentAperture } from '../../actions';
-import { Button, Paper, Slider } from '@material-ui/core';
+import { nextNCards, aperturePosition, apertureSize } from '../../actions';
+import { Button, Paper, Slider, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
@@ -14,18 +14,27 @@ const useStyles = makeStyles({
 
 export const Next = () => {
   const classes = useStyles();
-  const [{visited, aperture={ position:1 }}, dispatch] = useStore();
-  const [number, setNumber] = useState(6);
-  const [position, setPosition] = useState(aperture.position)
+  const [{visited, aperture: { position: aperture_position = 1, size: aperture_size = 6 }}, dispatch] = useStore();
+  const [position, setPosition] = useState(aperture_position);
+  const [size, setSize] = useState(aperture_size)
+
+  useEffect(()=>{
+    setPosition(aperture_position)
+  },[aperture_position])
+
+   useEffect(()=>{
+    setSize(aperture_size)
+  },[aperture_size])
  
 
   return (
     <Paper className={classes.slidersContainer}>
-      <Button children={"Next"} component="button" onClick={ e => dispatch( nextNCards({ n: number }) ) }/>
-      <Slider value={number} min={1} max={10} valueLabelDisplay="auto"
-  aria-labelledby="range-slider" onChange={(e,value) => { setNumber(value); }}/>
-      <Slider value={position} min={1} max={(visited.length/6) +1} valueLabelDisplay="auto"
-  aria-labelledby="range-slider" onChange={(e,value) => { setPosition(value);dispatch( currentAperture({ position: value }) ) }} />
+      <Typography children={'aperture_position'}  color="textSecondary" gutterBottom/>   
+      <Slider value={position} min={1} max={(visited.length/aperture_size) +1} valueLabelDisplay="auto"
+  aria-labelledby="range-slider" onChange={(e,value) => { setPosition(value);dispatch( aperturePosition({ position: value }) ) }} />
+      <Typography children={'aperture_size'}  color="textSecondary" gutterBottom/>   
+      <Slider value={size} min={1} max={6} valueLabelDisplay="auto"
+  aria-labelledby="range-slider" onChange={(e,value) => { setSize(value);dispatch( apertureSize({ size: value }) ) }} />
     </Paper>
   )
 }

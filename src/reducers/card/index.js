@@ -13,13 +13,38 @@ const unvisitedCardPicker = ({visited, source, number}) => {
   return visited
 }
 
+const getMaxAperturePosition = (state) => {
+  return parseInt(Number(state.visited.length / state.aperture.size))
+}
+
+const getMaxApertureSize = (state) => {
+  return parseInt(Number(6).toFixed(0))
+}
+
+/** 
+ * the formula here will essentially allow continuous forward progress via rollover to 1 
+ *  and halt on reversing past 1 
+ */
+const ensurePositionLimits = (state, input) => {
+  return (0<input && input<getMaxAperturePosition(state)+1) ? input : 1
+}
+
+const ensureSizeLimits = (state, input) => {
+  return (0<input && input<getMaxApertureSize(state)+1) ? input : 1
+}
+
 // const visitCard = (card) => {
 //   return Object.assign({}, DEFAULT_CARD, card, {id: uuid(), visit: Date.now()})
 // }
 
-export const aperture = (state, { payload }) => ({
+export const aperturePosition = (state, { payload }) => ({
   ...state,
-  aperture: {...payload.aperture},
+  aperture: {...state.aperture, ...payload.aperture, max: getMaxAperturePosition(state), position: ensurePositionLimits(state, payload.aperture.position)},
+});
+
+export const apertureSize = (state, { payload }) => ({
+  ...state,
+  aperture: {...state.aperture, ...payload.aperture, max: getMaxAperturePosition(state), size: ensureSizeLimits(state, payload.aperture.size)},
 });
 
 

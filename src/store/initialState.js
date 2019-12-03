@@ -7,5 +7,5 @@ export default {
     delay: 5,
   },
   visited: [],
-  aperture: {position: 1}
+  aperture: {position: 1, size: 6}
 };
