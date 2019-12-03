@@ -44,37 +44,37 @@ const useStyles = makeStyles({
       background: "rgba(205,255,180,0.8)",
     }
   },
-  sm2_0: {
+  sm2_1: {
     background: "rgba(255,200,180,1)",
     '&:hover': {
       background: "rgba(255,200,180,0.8)",
     }
   },
-  sm2_1: {
+  sm2_2: {
     background: "rgba(255,220,180,0.4)",
     '&:hover': {
       background: "rgba(255,220,180,0.8)",
     }
   },
-  sm2_2: {
+  sm2_3: {
     background: "hsla(53,100%,58%,0.4)",
     '&:hover': {
       background: "hsla(57,100%,58%,1)",
     }
   },
-  sm2_3: {
+  sm2_4: {
     background: "rgba(210,215,200,0.4)",
     '&:hover': {
       background: "rgba(210,215,200,0.8)",
     }
   },
-  sm2_4: {
+  sm2_5: {
     background: "rgba(180,225,180,0.4)",
     '&:hover': {
       background: "rgba(120,225,100,0.8)",
     }
   },
-  sm2_5: {
+  sm2_6: {
     background: "rgba(150,255,180,0.4)",
     '&:hover': {
       background: "rgba(100,255,100,0.8)",
@@ -176,7 +176,7 @@ export const List = () => {
             />
             <Typography onMouseOver={swallow} children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.title} color="textSecondary" gutterBottom/>
            </CardContent>
-           {false && <Score card={card} />}
+           {true && <Score card={card} />}
         </Card>
       </Grid>
       

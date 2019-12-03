@@ -8,12 +8,12 @@ import { Rating } from '@material-ui/lab';
 import Square from '../../icons/Square';
 
 const labels = {
-  0: 'Nothing',
-  1: 'Inadequate',
-  2: 'Adequate',
-  3: 'Ok',
-  4: 'Good',
-  5: 'Excellent',
+  1: 'Nothing',
+  2: 'Inadequate',
+  3: 'Adequate',
+  4: 'Ok',
+  5: 'Good',
+  6: 'Excellent',
 };
 
 const defaultIcon = <Square fontSize="inherit" />;
@@ -37,11 +37,11 @@ export const Score = (props) => {
           name={id} // THIS IS CRITICAL!!
           value={sm2}
           precision={1}
-          max={5}
+          max={6}
           size={'small'}
           icon={defaultIcon}
           onChange={(event, value) => {
-            scoreCard({id, value,  visited, dispatch})
+            scoreCard({id, value: (value),  visited, dispatch})
           }}
           onChangeActive={(event, newHover) => {
             setHover(newHover);
