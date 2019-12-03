@@ -107,6 +107,9 @@ const useStyles = makeStyles({
 });
 
 
+const swallow = (e) => {
+  e.stopPropagation();
+}
 
 
 
@@ -116,15 +119,31 @@ export const List = () => {
   
 
   return (
-    <Grid container  spacing={4} justify="space-around" className={classes.gridcontainer}>
-      <Grid item className={classes.gridprev} onClick={(e) => { dispatch( aperturePosition({ position: (aperture_position-1) }) ) }}>
+    <Grid container spacing={4} justify="space-around" className={classes.gridcontainer}>
+      <Grid 
+          item 
+          className={classes.gridprev} 
+          onClick={(e) => { 
+            dispatch( aperturePosition({ position: (aperture_position-1) }) ) 
+          }}
+          onMouseOver={()=>{
+            dispatch(silenceAudio({ }))
+          }} >
         <Card className={classes.card}>
           <CardContent >  
             <Typography children={'Prev'}  className={classes.title} color="textSecondary" gutterBottom/>
           </CardContent >
         </Card>
       </Grid>
-      <Grid item className={classes.gridnext} onClick={(e) => { if(aperture_position<aperture_max) {dispatch( aperturePosition({ position: (aperture_position+1) }) ) } else {dispatch(nextNCards({ n: (aperture_size) })); dispatch( aperturePosition({ position: (aperture_position+1) }) ) } }}>
+      <Grid 
+            item 
+            className={classes.gridnext} 
+            onClick={(e) => { 
+              if(aperture_position<aperture_max) {dispatch( aperturePosition({ position: (aperture_position+1) }) ) } else {dispatch(nextNCards({ n: (aperture_size) })); dispatch( aperturePosition({ position: (aperture_position+1) }) ) } 
+            }}  
+            onMouseOver={()=>{
+              dispatch(silenceAudio({ }))
+            }} >
         <Card className={classes.card} >
           <CardContent >
             <Typography children={'Next'}  className={classes.title} color="textSecondary" gutterBottom/>
@@ -142,21 +161,20 @@ export const List = () => {
                 // dispatch(markUnvisitedCard({...card}))
                 dispatch(currentCard({ ...card }))
               }}
-              onMouseOut={()=>{
-                dispatch(silenceAudio({ }))
-              }}
+               onMouseOut={swallow}
       >
-        <Card className={classes[`sm2_${card.sm2}`]} >
-          <CardContent >
+        <Card className={classes[`sm2_${card.sm2}`]} onMouseOver={(e)=>{}}>
+          <CardContent onMouseOver={(e)=>{}}>
             
-            <Typography children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
-            <Typography children={card.fl_word} variant="subtitle1" component="h2" />
+            <Typography onMouseOver={swallow} children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
+            <Typography onMouseOver={swallow} children={card.fl_word} variant="subtitle1" component="h2" />
             <CardMedia
+              onMouseOver={swallow}
               className={classes.media}
               image={card.images && card.images[0]}
               title={card.fl_word}
             />
-            <Typography children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.title} color="textSecondary" gutterBottom/>
+            <Typography onMouseOver={swallow} children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.title} color="textSecondary" gutterBottom/>
            </CardContent>
            {false && <Score card={card} />}
         </Card>
