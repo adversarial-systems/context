@@ -4,7 +4,9 @@ export const UPDATE_ITEM = 'UPDATE_ITEM'
 export const FILTER_ITEM = 'FILTER_ITEM'
 export const REMOVE_ITEM = 'REMOVE_ITEM'
 
+export const CURRENT_CARD = 'CURRENT_CARD'
 export const NEXT_NCARDS = 'NEXT_NCARDS'
+export const APERTURE_CARDS = 'APERTURE_CARDS'
 export const UPDATE_CARD = 'UPDATE_CARD'
 export const MARKVISITED_CARD = 'MARKVISITEDCARD'
 export const MARKUNVISITED_CARD = 'MARKUNVISITED_CARD'
@@ -15,6 +17,7 @@ export const PROMOTE_CARD = 'PROMOTE_CARD'
 export const FILTER_CARD = 'FILTER_CARD'
 
 export const SET_AUDIO = 'SET_AUDIO'
+export const SILENCE_AUDIO = 'SILENCE_AUDIO'
 
 export const SHOW_STATE = 'SHOW_STATE'
 

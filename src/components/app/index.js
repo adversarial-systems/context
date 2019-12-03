@@ -9,7 +9,7 @@ import {
   Next,
   StateViewer, 
   Timer, 
-  TodayList 
+  List 
 } from "../";
 
 
@@ -30,10 +30,10 @@ export const App = () => {
     <Store initialState={initLocalState(initialState)} reducer={reducers}>
     	<ThemeProvider theme={theme} >
         <Timer />
-        <Audio active={true}/>
         <Next />
-        <TodayList />
+        <List />
   	    <StateViewer />
+        <Audio active={true}/>
       </ThemeProvider>
     </Store>
   )

@@ -9,12 +9,13 @@ import Paper from '@material-ui/core/Paper';
 
 const useStyles = (theme) => makeStyles(({ spacing, ...theme }) => ({
   paper: {
+
     padding: spacing(2),
     marginBottom: spacing(2),
     flexDirection: 'row',
     justifyContent: 'space-between',
     fontSize:'60%',
-    display: 'block',
+    display: 'inline-block',
   },
 }))();
 

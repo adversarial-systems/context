@@ -17,6 +17,23 @@ const unvisitedCardPicker = ({visited, source, number}) => {
 //   return Object.assign({}, DEFAULT_CARD, card, {id: uuid(), visit: Date.now()})
 // }
 
+export const aperture = (state, { payload }) => ({
+  ...state,
+  aperture: {...payload.aperture},
+});
+
+
+export const clear = (state, { payload }) => ({
+  ...state,
+  current: {},
+});
+
+export const current = (state, { payload }) => ({
+  ...state,
+  current: {...payload.card},
+});
+
+
 export const nextn = (state, { payload }) => ({
   ...state,
   visited: unvisitedCardPicker({visited: state.visited || [], source: POR_ENG.cardlist, number: payload.next.n }),

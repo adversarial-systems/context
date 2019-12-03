@@ -1,6 +1,10 @@
 import React from 'react';
 
-import { Card as MCard } from '@material-ui/core';
+// import { useStore } from '../../store';
+// import { rescoreCard, persistLocal } from '../../actions';
+
+import { Card as MCard} from '@material-ui/core';
+
 
 export const Card = (props) => {
   const { children } = props;

@@ -1,5 +1,5 @@
-import React , { useRef, useState }     from 'react';
-import usePlayer  from './usePlayer';
+import React , { useRef }     from 'react';
+import usePlayer  from './usePlayer2';
 import { useStore } from '../../store';
 
   
@@ -17,23 +17,18 @@ export const Audio = (props) => {
     // playing,
     // setPlaying,
     // iOS,
+    playspeed=4.0,
     active=true,
-    media='',
-    mediaB='', 
   } = props
 
-    
-  const [{ mode, audio: { url = '' } = {url:''} }, ] = useStore();
-  media = url;
-  mediaB = url;
-  // const mediaPathStereo = `./media/${(mode || 'POR').toUpperCase()}/`
-  const { audioTrackURL } = usePlayer({...props, media, mediaB, playerRef, buttonRef, mode })
-  if(active) return (
+  const [{ mode, current={audio_stereo_url:'', audio_dichotic_url:''} },] = useStore();
+  const { audioTrack, audioTrackURL } = usePlayer({...props, active, current, playerRef, buttonRef, mode, playspeed })
+  if(active && audioTrack && audioTrackURL) return (
     <div>
 
-     {url && <video playsInline ref={playerRef} src={`${audioTrackURL}`} preload autoPlay loop controls height={'72'}/>}
-     {(!url) && <div>Audio Loading ...</div>}
-     {url && <div>{url}</div>}
+     {audioTrack && <video playsInline ref={playerRef} src={`${audioTrackURL}`} preload="true" autoPlay loop controls height={'0'}/>}
+     {(!audioTrack) && <div>Audio Loading ...</div>}
+     {audioTrackURL && <div>{audioTrackURL}</div>}
    
       </div>
   )
