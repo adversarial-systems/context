@@ -1,13 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 
 import { useStore } from '../../store';
-import { nextNCards, currentCard, aperturePosition, silenceAudio } from '../../actions';
+import { nextNCards, updateCard, currentCard, aperturePosition, apertureSize, silenceAudio, markUnvisitedCard, rescoreCard, persistLocal } from '../../actions';
 
 import { Card, Score } from '../';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
 
 
 // import DeleteIcon from '@material-ui/icons/Delete';
@@ -114,9 +113,8 @@ const swallow = (e) => {
 
 
 export const List = () => {
-  const [{ visited, aperture: { position: aperture_position, size: aperture_size, max: aperture_max }, chrono: { created } },dispatch ] = useStore();
+  const [{ visited, aperture: { position: aperture_position, size: aperture_size, max: aperture_max }, chrono: { created } }, dispatch ] = useStore();
   const classes = useStyles();
-  
 
   return (
     <Grid container spacing={4} justify="space-around" className={classes.gridcontainer}>
@@ -164,19 +162,30 @@ export const List = () => {
                onMouseOut={swallow}
       >
         <Card className={classes[`sm2_${card.sm2}`]} onMouseOver={(e)=>{}}>
-          <CardContent onMouseOver={(e)=>{}}>
+          {!card.flipped && 
+            <CardContent 
+              onMouseOver={(e)=>{}}
+              onClick={(e)=>{ dispatch(updateCard({ ...card, flipped: true })) } }
+            >
             
-            <Typography onMouseOver={swallow} children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
-            <Typography onMouseOver={swallow} children={card.fl_word} variant="subtitle1" component="h2" />
-            <CardMedia
-              onMouseOver={swallow}
-              className={classes.media}
-              image={card.images && card.images[0]}
-              title={card.fl_word}
-            />
-            <Typography onMouseOver={swallow} children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.title} color="textSecondary" gutterBottom/>
-           </CardContent>
-           {true && <Score card={card} />}
+              <Typography onMouseOver={swallow} children={card.fl_word} variant="subtitle1" component="h2" />
+              <CardMedia
+                onMouseOver={swallow}
+                className={classes.media}
+                image={card.images && card.images[0]}
+                title={card.fl_word}
+              />
+              <Typography onMouseOver={swallow} children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.title} color="textSecondary" gutterBottom/>
+            </CardContent>
+          }
+          {card.flipped && 
+            <CardContent >
+              <Typography onMouseOver={swallow} children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
+              {true && 
+                <Score card={card} />
+              }
+            </CardContent>
+          }
         </Card>
       </Grid>
       

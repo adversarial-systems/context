@@ -25,6 +25,7 @@ export default combine({
   [types.MARKVISITED_CARD]:card.markVisited,
   [types.MARKUNVISITED_CARD]:card.markUnvisited,
   [types.RESCORE_CARD]: card.update,
+  [types.UPDATE_CARD]: card.update,
   [types.SET_AUDIO]:audio.setUrl,
   [types.SILENCE_AUDIO]: card.clear,
   // [types.SET_AUDIO]:local.persist,
