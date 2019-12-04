@@ -43,6 +43,9 @@ const useStyles = makeStyles({
       background: "rgba(205,255,180,0.8)",
     }
   },
+  cardContent: {
+    height:165,
+  },
   sm2_1: {
     background: "rgba(255,200,180,1)",
     '&:hover': {
@@ -161,7 +164,7 @@ export const List = () => {
               }}
                onMouseOut={swallow}
       >
-        <Card className={classes[`sm2_${card.sm2}`]} onMouseOver={(e)=>{}}>
+        <Card className={[classes[`sm2_${card.sm2}`], classes.cardContent]} onMouseOver={(e)=>{}}>
           {!card.flipped && 
             <CardContent 
               onMouseOver={(e)=>{}}
@@ -180,7 +183,7 @@ export const List = () => {
           }
           {card.flipped && 
             <CardContent >
-              <Typography onMouseOver={swallow} children={card.nl_word}  className={classes.title} color="textSecondary" gutterBottom/>
+              <Typography onMouseOver={swallow} children={card.nl_word}  variant="subtitle1" component="h2" gutterBottom/>
               {true && 
                 <Score card={card} />
               }
