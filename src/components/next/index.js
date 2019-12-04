@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 
 import { useStore } from '../../store';
-import { nextNCards, aperturePosition, apertureSize } from '../../actions';
-import { Button, Paper, Slider, Typography } from '@material-ui/core';
+import { aperturePosition, apertureSize } from '../../actions';
+import { Paper, Slider, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({

@@ -2,12 +2,12 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 
 import { useStore } from '../../store';
-import { nextNCards, currentCard, aperturePosition, apertureSize, silenceAudio, markUnvisitedCard, rescoreCard, persistLocal } from '../../actions';
+import { nextNCards, currentCard, aperturePosition, silenceAudio } from '../../actions';
 
 import { Card, Score } from '../';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { CardContent, CardMedia, Grid, Paper, Typography } from '@material-ui/core';
+import { CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
 
 
 // import DeleteIcon from '@material-ui/icons/Delete';

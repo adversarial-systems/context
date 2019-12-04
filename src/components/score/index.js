@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import { useStore } from '../../store';
 import { rescoreCard, persistLocal } from '../../actions';
 
-import { Box, CardContent, ToolTip, Typography} from '@material-ui/core';
+import { Box, CardContent } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
 import Square from '../../icons/Square';
 

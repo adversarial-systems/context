@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 
-const isSafari = (function (p) { return p && (p.toString() === "[object SafariRemoteNotification]") })(window['safari'] && window['safari']['pushNotification'] );
+// const isSafari = (function (p) { return p && (p.toString() === "[object SafariRemoteNotification]") })(window['safari'] && window['safari']['pushNotification'] );
 const ua = window.navigator.userAgent;
 const iOS = !!ua.match(/iPad/i) || !!ua.match(/iPhone/i); 
 
@@ -12,15 +12,11 @@ export default function usePlayer(props) {
     loopcount,
     maxloops,
     current,
-    onloopstart=()=>{}, 
-    setLoopCount=()=>{},
     playspeed=2.0,
-    audio, 
     dichotic=true,
     playerRef,
     buttonRef,
     mode,
-    debug=true,
   } = props
 
   const [playing, setPlaying] = useState(true);
@@ -29,8 +25,6 @@ export default function usePlayer(props) {
   const [audioTrack, setAudioTrack] = useState()
   const [audioTrackURL, setAudioTrackURL] = useState('')
   const [looped, setLooped] = useState(true)
-  const [mediaReady, setMediaReady] = useState(false)
-  
 
 
   const startPlayer = useCallback(() => {
@@ -56,7 +50,7 @@ export default function usePlayer(props) {
     return () => {
       console.log('cleanup callback for audioPlayer 02')
     }
-  },[ loopcount, onloopstart, playerRef, playspeed, setLoopCount])
+  },[  playerRef, playspeed])
 
   const stopPlayer = useCallback(() => {
     if(playerRef && playerRef.current && playerRef.current){
@@ -65,7 +59,7 @@ export default function usePlayer(props) {
         return () => {
       console.log('cleanup callback for audioPlayer 03')
     }
-  }, [playerRef, audioTrack])
+  }, [playerRef])
 
   useEffect(() => {
     const { audio_dichotic_url, audio_stereo_url } = current;
