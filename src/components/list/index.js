@@ -7,7 +7,7 @@ import { nextNCards, updateCard, currentCard, aperturePosition, apertureSize, si
 import { Card, Score } from '../';
 import { makeStyles } from '@material-ui/core/styles';
 
-
+import { CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
 
 // import DeleteIcon from '@material-ui/icons/Delete';
 
