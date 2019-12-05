@@ -20,6 +20,7 @@ export default combine({
   [types.FILTER_ITEM]: item.filter,
   [types.CURRENT_CARD]: card.current,
   [types.NEXT_NCARDS]: card.nextn,
+  [types.SORT_CARDS]: card.resortVisited,
   [types.APERTURE_POSITION]: card.aperturePosition,
   [types.APERTURE_SIZE]: card.apertureSize,
   [types.MARKVISITED_CARD]:card.markVisited,

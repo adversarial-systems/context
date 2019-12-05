@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useStore } from '../../store';
-import { advanceTime, persistLocal, delayTimer, ageCreated } from '../../actions';
+import { advanceTime, persistLocal, delayTimer, ageCreated, sortCards } from '../../actions';
 import { useInterval } from '../../hooks';
 import { Paper, Slider, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -16,6 +16,7 @@ export const Timer = () => {
 
   useEffect(() => {
     dispatch(advanceTime({}));
+    dispatch(sortCards({}));
   },[dispatch])
 
   useInterval(() => {

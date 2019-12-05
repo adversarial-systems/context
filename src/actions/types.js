@@ -6,6 +6,7 @@ export const REMOVE_ITEM = 'REMOVE_ITEM'
 
 export const CURRENT_CARD = 'CURRENT_CARD'
 export const NEXT_NCARDS = 'NEXT_NCARDS'
+export const SORT_CARDS = 'SORT_CARDS'
 export const APERTURE_POSITION = 'APERTURE_POSITION'
 export const APERTURE_SIZE = 'APERTURE_SIZE'
 export const UPDATE_CARD = 'UPDATE_CARD'

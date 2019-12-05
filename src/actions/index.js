@@ -11,6 +11,7 @@ export const showState = state => ({ type: types.SHOW_STATE, payload: { state } 
 
 export const currentCard = card => ({ type: types.CURRENT_CARD, payload: { card } });
 export const nextNCards = next => ({ type: types.NEXT_NCARDS, payload: { next } });
+export const sortCards = sort => ({ type: types.SORT_CARDS, payload: { sort } });
 export const aperturePosition = aperture => ({ type: types.APERTURE_POSITION, payload: { aperture } });
 export const apertureSize = aperture => ({ type: types.APERTURE_SIZE, payload: { aperture } }) ;
 export const updateCard = card => ({ type: types.UPDATE_CARD, payload: { card } });

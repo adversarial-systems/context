@@ -14,6 +14,7 @@ import { CardContent, CardMedia, Grid, Typography } from '@material-ui/core';
 const useStyles = makeStyles({
   paper:{
     maxHeight:200,
+
   },
   gridcontainer: {
     // minHeight:100,
@@ -21,6 +22,16 @@ const useStyles = makeStyles({
     // '@media(min-width:780px)': { // eslint-disable-line no-useless-computed-key
     //   width: '80%'
     // }
+    
+    '@media(min-width:680px)': { // eslint-disable-line no-useless-computed-key
+      transform: 'scale(0.75)',
+    },
+    '@media(min-width:980px)': { // eslint-disable-line no-useless-computed-key
+      transform: 'scale(0.95)',
+    },
+    transform: 'scale(0.5)',
+    fontSize:'1.5rem',
+    flexWrap: 'nowrap',
   },
   griditem: {
     minWidth: 115,
@@ -98,6 +109,16 @@ const useStyles = makeStyles({
   
   },
   title: {
+    '@media(min-width:680px)': { // eslint-disable-line no-useless-computed-key
+fontSize: '0.8rem',
+    },
+    '@media(min-width:980px)': { // eslint-disable-line no-useless-computed-key
+fontSize: '1rem',
+    },
+    fontSize: '0.8rem',
+
+  },
+  age: {
     fontSize: 10,
   },
   media: {
@@ -140,7 +161,7 @@ export const List = () => {
             item 
             className={classes.gridnext} 
             onClick={(e) => { 
-              if(aperture_position<aperture_max) {dispatch( aperturePosition({ position: (aperture_position+1) }) ) } else {dispatch(nextNCards({ n: (aperture_size) })); dispatch( aperturePosition({ position: (aperture_position+1) }) ) } 
+              if(aperture_position<aperture_max) {dispatch( aperturePosition({ position: (aperture_position+1) }) ) } else {dispatch(nextNCards({ n: (aperture_size) }));  } 
             }}  
             onMouseOver={()=>{
               dispatch(silenceAudio({ }))
@@ -154,8 +175,8 @@ export const List = () => {
     {visited && visited
       // .filter(t => (t && t.sm2===3))
       .slice((aperture_size*(aperture_position-1)),(aperture_size*(aperture_position-1))+aperture_size)
-      .sort((a,b)=>{ return a.visit - b.visit })
-      .sort((a,b)=>{ return a.sm2 - b.sm2 })
+      // .sort((a,b)=>{ return a.firstvisit - b.firstvisit })
+      // .sort((a,b)=>{ return a.sm2 - b.sm2 })
       .map(card => (
       <Grid key={card.id} item className={classes.griditem} 
               onMouseOver={()=>{
@@ -171,14 +192,14 @@ export const List = () => {
               onClick={(e)=>{ dispatch(updateCard({ ...card, flipped: true })) } }
             >
             
-              <Typography onMouseOver={swallow} children={card.fl_word} variant="subtitle1" component="h2" />
+              <Typography onMouseOver={swallow} children={card.fl_word} component="h2" className={classes.title}/>
               <CardMedia
                 onMouseOver={swallow}
                 className={classes.media}
                 image={card.images && card.images[0]}
                 title={card.fl_word}
               />
-              <Typography onMouseOver={swallow} children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.title} color="textSecondary" gutterBottom/>
+              <Typography onMouseOver={swallow} children={(((card.visit-created))/(86400*1000)).toFixed(1)}  className={classes.age} color="textSecondary" gutterBottom/>
             </CardContent>
           }
           {card.flipped && 

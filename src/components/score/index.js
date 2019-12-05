@@ -5,6 +5,7 @@ import { rescoreCard, updateCard, persistLocal } from '../../actions';
 
 import { Box, CardContent } from '@material-ui/core';
 import { Rating } from '@material-ui/lab';
+import { makeStyles } from '@material-ui/core/styles';
 import Square from '../../icons/Square';
 
 const labels = {
@@ -18,10 +19,25 @@ const labels = {
 
 const defaultIcon = <Square fontSize="inherit" />;
 
+const useStyles = makeStyles({
+  scorecontainer: {
+    display: 'block',
+    '@media(min-width:680px)': { // eslint-disable-line no-useless-computed-key
+      transform: 'scale(0.75)',
+    },
+    '@media(min-width:980px)': { // eslint-disable-line no-useless-computed-key
+      transform: 'scale(0.95)',
+    },
+    transform: 'scale(0.5)',
+    fontSize:'1.5rem',
+  },
+})
+
 export const Score = (props) => {
   const [{ visited }, dispatch] = useStore();
   const { card: { id: card_id=null, sm2: card_sm2=null }, card } = props;
   const [hover, setHover] = useState(-1);
+  const classes = useStyles();
 
   const scoreCard = async ({id, value=2.5, visited, dispatch}) => {
     const match = visited.find(vc => { return vc.id===id });
@@ -32,7 +48,7 @@ export const Score = (props) => {
   }
 
   return (
-      <CardContent>
+      <CardContent className={classes.scorecontainer}>
         <Rating
           name={card_id} // THIS IS CRITICAL!!
           value={card_sm2}

@@ -3,8 +3,11 @@ import { shuffleArrayWithKFY } from '../../utils';
 import { DEFAULT_CARD } from './default';
 import { POR_ENG } from '../../data';
 
+/**
+ * lower the factor on card creation to push it to front of visited list 
+ */
 const initCard = (card) => {
-  return Object.assign({}, DEFAULT_CARD, card, {source: card.id, id: uuid(), visit: Date.now()});
+  return Object.assign({}, DEFAULT_CARD, card, {source: card.id, id: uuid(), firstvisit: Date.now(), visit: Date.now(), factor: 0.0001});
 }
 
 const unvisitedCardPicker = ({visited, source, number}) => {
@@ -19,6 +22,14 @@ const getMaxAperturePosition = (state) => {
 
 const getMaxApertureSize = (state) => {
   return parseInt(Number(6).toFixed(0))
+}
+
+const sortVisited = (a,b) => { 
+  return (a.sm2*(Math.random(5)+a.factor)) - (b.sm2*(1+b.factor))
+}
+
+const blitz = () => {
+  return Math.random();
 }
 
 /** 
@@ -55,24 +66,31 @@ export const clear = (state, { payload }) => ({
 
 export const current = (state, { payload }) => ({
   ...state,
-  current: {...payload.card},
+  current: {...payload.card, visit: Date.now() },
+  visited: state.visited.map(t => (t.id === payload.card.id ? {...payload.card, visit: Date.now(), factor: blitz()}: t)),
 });
 
+export const resortVisited = (state, { payload }) =>({
+  ...state,
+  visited: state.visited.map(t => ({...t})).sort(sortVisited),
+  aperture: {...state.aperture, position: 1},
+});
 
 export const nextn = (state, { payload }) => ({
   ...state,
-  visited: unvisitedCardPicker({visited: state.visited || [], source: POR_ENG.cardlist, number: payload.next.n }),
+  visited: unvisitedCardPicker({visited: state.visited || [], source: POR_ENG.cardlist, number: payload.next.n }).sort(sortVisited),
   source: [...POR_ENG.cardlist],
+  aperture: {...state.aperture, position: 1},
 });
 
 export const update = (state, { payload }) => ({
   ...state,
-  visited: state.visited.map(t => (t.id === payload.card.id ? payload.card : t)),
+  visited: state.visited.map(t => (t.id === payload.card.id ? { ...payload.card, factor: blitz()} : t)),
 });
 
 export const markVisited = (state, { payload }) => ({
   ...state,
-  visited: [...state.visited, payload.card],
+  visited: [...state.visited, { ...payload.card, factor: blitz()}],
 });
 
 export const markUnvisited = (state, { payload }) => ({
